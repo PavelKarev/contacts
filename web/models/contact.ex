@@ -1,8 +1,6 @@
 defmodule Contact.Contact do
   use Contact.Web, :model
-
-
-  @genders [
+@genders [
     {0, :male},
     {1, :female}
   ]
