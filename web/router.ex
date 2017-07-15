@@ -17,17 +17,13 @@ defmodule Contact.Router do
   scope "/api", Contact do
     pipe_through :api
 
-    resources "/contacts", ContactController, only: [:index]
+    resources "/contacts", ContactController, only: [:index, :show]
   end
 
   scope "/", Contact do
     pipe_through :browser # Use the default browser stack
 
-    get "/", PageController, :index
+    get "/*path", PageController, :index
   end
 
-  # Other scopes may use custom stacks.
-  # scope "/api", Contact do
-  #   pipe_through :api
-  # end
 end

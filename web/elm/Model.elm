@@ -1,10 +1,20 @@
 module Model exposing (..)
 
+import Routing exposing (Route)
+
+
+type RemoteData e a
+    = NotRequested
+    | Requesting
+    | Failure e
+    | Success a
+
 
 type alias Model =
-    { contactList : ContactList
-    , error : Maybe String
+    { contactList : RemoteData String ContactList
     , search : String
+    , route : Route
+    , contact : RemoteData String Contact
     }
 
 
@@ -29,18 +39,20 @@ type alias Contact =
     , picture : String
     }
 
+
 initialContactList : ContactList
 initialContactList =
-  { entries = []
-  , page_number = 1
-  , total_entries = 0
-  , total_pages = 0
-  }
+    { entries = []
+    , page_number = 1
+    , total_entries = 0
+    , total_pages = 0
+    }
 
 
-initialModel : Model
-initialModel =
-    { contactList = initialContactList
-    , error = Nothing
+initialModel : Route -> Model
+initialModel route =
+    { contactList = NotRequested
     , search = ""
+    , route = route
+    , contact = NotRequested
     }
